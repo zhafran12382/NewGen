@@ -1,20 +1,21 @@
-# AI Chatbot - Powered by Google Gemini
+# NewGen AI - Chat Assistant
 
-A modern, responsive AI chatbot web application powered by Google's Gemini API.
+A modern, beautiful AI chatbot web application powered by Google's Gemini API. Designed with a sleek interface inspired by ChatGPT and Google Gemini.
 
-![AI Chatbot](https://img.shields.io/badge/AI-Chatbot-blue)
-![Gemini](https://img.shields.io/badge/Powered%20by-Google%20Gemini-orange)
+![NewGen AI](https://img.shields.io/badge/NewGen-AI-purple)
+![Gemini](https://img.shields.io/badge/Powered%20by-Google%20Gemini-blue)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
 ## ✨ Features
 
-- 🤖 AI-powered conversations using Google Gemini API
-- 💬 Modern, clean chat interface
-- 📱 Fully responsive design (works on mobile and desktop)
-- 🔐 Secure API key storage (stored locally in browser)
-- ⚡ Real-time typing indicators
-- 🎨 Beautiful gradient UI design
-- 🎯 **Response Overrides** - Create custom responses for specific questions
+- 🤖 **AI-powered conversations** using Google Gemini 2.0 Flash
+- 🌙 **Dark/Light Theme** - Toggle between themes with one click
+- 📋 **Sidebar Navigation** - Chat history and quick access to settings
+- 💡 **Suggestion Prompts** - Quick start with pre-made conversation starters
+- 📱 **Fully Responsive** - Beautiful on desktop and mobile
+- 🔐 **Secure API Storage** - Keys stored locally in browser
+- 📋 **Copy Messages** - One-click copy for any message
+- 🎯 **Response Overrides** - Custom responses for specific questions
 
 ## 🎯 Response Overrides (Unique Feature)
 
@@ -81,9 +82,11 @@ NewGen/
 
 You can easily customize the chatbot by modifying:
 
-- **Colors**: Edit the gradient colors in `styles.css` (look for `#667eea` and `#764ba2`)
+- **Theme Colors**: Edit CSS variables in `styles.css` (look for `:root` and `[data-theme="dark"]`)
+- **Accent Color**: Change `--accent-color` for buttons and highlights
 - **Model**: Change the Gemini model in `script.js` (default: `gemini-2.0-flash`)
 - **Temperature**: Adjust response creativity in `script.js` (`generationConfig.temperature`)
+- **Suggestions**: Edit the suggestion cards in `index.html`
 
 ## 📝 License
 

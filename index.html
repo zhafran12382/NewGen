@@ -1,45 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Chatbot - Powered by Gemini</title>
+    <title>NewGen AI - Chat Assistant</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="chat-container">
-        <div class="chat-header">
-            <div class="header-content">
-                <div class="logo">🤖</div>
-                <div class="header-text">
-                    <h1>AI Chatbot</h1>
-                    <p>Powered by Google Gemini</p>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="brand">
+                    <div class="brand-icon">✨</div>
+                    <span class="brand-name">NewGen AI</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle" title="Toggle Sidebar">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M3 12h18M3 6h18M3 18h18"/>
+                    </svg>
+                </button>
+            </div>
+            
+            <button class="new-chat-btn" id="newChatBtn">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 5v14M5 12h14"/>
+                </svg>
+                <span>New Chat</span>
+            </button>
+
+            <div class="chat-history" id="chatHistory">
+                <div class="history-section">
+                    <span class="history-label">Today</span>
+                    <div class="history-list" id="todayChats"></div>
                 </div>
             </div>
-            <button id="settingsBtn" class="settings-btn" title="Response Overrides">
-                ⚙️
-            </button>
-        </div>
+
+            <div class="sidebar-footer">
+                <button class="sidebar-btn" id="settingsBtn" title="Response Overrides">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    <span>Overrides</span>
+                </button>
+                <button class="sidebar-btn" id="themeToggle" title="Toggle Theme">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-sun">
+                        <circle cx="12" cy="12" r="5"/>
+                        <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon-moon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                    <span>Theme</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- API Key Section -->
+            <div class="api-key-section" id="apiKeySection">
+                <div class="api-key-container">
+                    <div class="api-key-icon">🔑</div>
+                    <h1>Welcome to NewGen AI</h1>
+                    <p>Enter your Gemini API key to start chatting</p>
+                    <div class="api-key-form">
+                        <div class="input-wrapper">
+                            <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API Key">
+                            <button class="show-password" id="showPassword" type="button">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                    <circle cx="12" cy="12" r="3"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="api-error" id="apiError"></p>
+                        <button id="saveApiKey" class="primary-btn">
+                            <span>Start Chatting</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <a href="https://aistudio.google.com/app/apikey" target="_blank" class="api-link">
+                        Get your free API key from Google AI Studio →
+                    </a>
+                </div>
+            </div>
+
+            <!-- Chat Section -->
+            <div class="chat-section" id="chatMain" style="display: none;">
+                <!-- Welcome Screen -->
+                <div class="welcome-screen" id="welcomeScreen">
+                    <div class="welcome-logo">✨</div>
+                    <h1>How can I help you today?</h1>
+                    <p>I'm NewGen AI, powered by Google Gemini. Ask me anything!</p>
+                    
+                    <div class="suggestions">
+                        <button class="suggestion-card" data-prompt="Explain quantum computing in simple terms">
+                            <div class="suggestion-icon">🔬</div>
+                            <div class="suggestion-text">
+                                <span class="suggestion-title">Explain quantum computing</span>
+                                <span class="suggestion-desc">in simple terms</span>
+                            </div>
+                        </button>
+                        <button class="suggestion-card" data-prompt="Write a creative short story about AI">
+                            <div class="suggestion-icon">📝</div>
+                            <div class="suggestion-text">
+                                <span class="suggestion-title">Write a creative story</span>
+                                <span class="suggestion-desc">about artificial intelligence</span>
+                            </div>
+                        </button>
+                        <button class="suggestion-card" data-prompt="What are some tips for learning programming?">
+                            <div class="suggestion-icon">💻</div>
+                            <div class="suggestion-text">
+                                <span class="suggestion-title">Tips for learning</span>
+                                <span class="suggestion-desc">programming effectively</span>
+                            </div>
+                        </button>
+                        <button class="suggestion-card" data-prompt="Help me brainstorm ideas for a mobile app">
+                            <div class="suggestion-icon">💡</div>
+                            <div class="suggestion-text">
+                                <span class="suggestion-title">Brainstorm ideas</span>
+                                <span class="suggestion-desc">for a mobile app</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages Container -->
+                <div class="messages-container" id="chatMessages"></div>
+
+                <!-- Input Area -->
+                <div class="input-area">
+                    <div class="input-container">
+                        <textarea id="userInput" placeholder="Message NewGen AI..." rows="1"></textarea>
+                        <div class="input-actions">
+                            <button id="sendBtn" class="send-btn" disabled>
+                                <svg viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-footer">
+                        <span class="model-info">Powered by Gemini 2.0 Flash</span>
+                        <button id="changeApiKey" class="change-key-btn">Change API Key</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Mobile Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
         <!-- Response Override Modal -->
         <div class="modal-overlay" id="overrideModal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>🎯 Response Overrides</h2>
-                    <button class="modal-close" id="closeModal">&times;</button>
+                    <h2>⚙️ Response Overrides</h2>
+                    <button class="modal-close" id="closeModal">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M18 6L6 18M6 6l12 12"/>
+                        </svg>
+                    </button>
                 </div>
                 <div class="modal-body">
                     <p class="modal-description">
-                        Create custom responses for specific questions. The matching works regardless of word order 
-                        (e.g., "siapa anda" and "anda siapa" will both match).
+                        Create custom responses for specific questions. Matching is word-order independent.
                     </p>
                     
                     <div class="add-override-section">
                         <h3>Add New Override</h3>
                         <div class="override-form">
                             <input type="text" id="triggerInput" placeholder="Trigger phrase (e.g., siapa anda)">
-                            <textarea id="responseInput" placeholder="Custom response (e.g., Saya adalah Syahla)" rows="2"></textarea>
-                            <button id="addOverrideBtn" class="btn-primary">Add Override</button>
+                            <textarea id="responseInput" placeholder="Custom response" rows="2"></textarea>
+                            <button id="addOverrideBtn" class="primary-btn">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M12 5v14M5 12h14"/>
+                                </svg>
+                                Add Override
+                            </button>
                         </div>
                     </div>
 
@@ -50,41 +193,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="api-key-section" id="apiKeySection">
-            <div class="api-key-card">
-                <h2>🔑 Enter Your API Key</h2>
-                <p>Get your free API key from <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a></p>
-                <div class="api-input-group">
-                    <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API Key">
-                    <p class="api-error" id="apiError"></p>
-                    <button id="saveApiKey" class="btn-primary">Start Chatting</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="chat-main" id="chatMain" style="display: none;">
-            <div class="chat-messages" id="chatMessages">
-                <div class="message bot-message">
-                    <div class="message-avatar">🤖</div>
-                    <div class="message-content">
-                        <p>Hello! I'm your AI assistant powered by Google Gemini. How can I help you today?</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chat-input-container">
-                <div class="chat-input-wrapper">
-                    <textarea id="userInput" placeholder="Type your message here..." rows="1"></textarea>
-                    <button id="sendBtn" class="send-btn">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                        </svg>
-                    </button>
-                </div>
-                <button id="changeApiKey" class="change-key-btn">Change API Key</button>
             </div>
         </div>
     </div>
