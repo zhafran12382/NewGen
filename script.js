@@ -8,8 +8,18 @@ const userInput = document.getElementById('userInput');
 const sendBtn = document.getElementById('sendBtn');
 const changeApiKeyBtn = document.getElementById('changeApiKey');
 
+// Override Modal Elements
+const settingsBtn = document.getElementById('settingsBtn');
+const overrideModal = document.getElementById('overrideModal');
+const closeModalBtn = document.getElementById('closeModal');
+const triggerInput = document.getElementById('triggerInput');
+const responseInput = document.getElementById('responseInput');
+const addOverrideBtn = document.getElementById('addOverrideBtn');
+const overridesList = document.getElementById('overridesList');
+
 // State
 let apiKey = '';
+let responseOverrides = [];
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -19,6 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
         apiKey = storedKey;
         showChatInterface();
     }
+
+    // Load stored overrides
+    loadOverrides();
 
     // Auto-resize textarea
     userInput.addEventListener('input', autoResizeTextarea);
@@ -44,6 +57,127 @@ changeApiKeyBtn.addEventListener('click', () => {
     apiKeyInput.value = '';
     showApiKeySection();
 });
+
+// Override Modal Event Listeners
+settingsBtn.addEventListener('click', openModal);
+closeModalBtn.addEventListener('click', closeModal);
+overrideModal.addEventListener('click', (e) => {
+    if (e.target === overrideModal) closeModal();
+});
+addOverrideBtn.addEventListener('click', addOverride);
+
+// Modal Functions
+function openModal() {
+    overrideModal.classList.add('active');
+    renderOverridesList();
+}
+
+function closeModal() {
+    overrideModal.classList.remove('active');
+    triggerInput.value = '';
+    responseInput.value = '';
+}
+
+// Override Management Functions
+function loadOverrides() {
+    const stored = localStorage.getItem('response_overrides');
+    if (stored) {
+        try {
+            responseOverrides = JSON.parse(stored);
+        } catch (e) {
+            responseOverrides = [];
+        }
+    }
+}
+
+function saveOverrides() {
+    localStorage.setItem('response_overrides', JSON.stringify(responseOverrides));
+}
+
+function addOverride() {
+    const trigger = triggerInput.value.trim().toLowerCase();
+    const response = responseInput.value.trim();
+    
+    if (!trigger || !response) {
+        alert('Please fill in both trigger phrase and response.');
+        return;
+    }
+    
+    // Check for duplicate triggers
+    const existingIndex = responseOverrides.findIndex(o => normalizeForMatching(o.trigger) === normalizeForMatching(trigger));
+    if (existingIndex !== -1) {
+        responseOverrides[existingIndex].response = response;
+    } else {
+        responseOverrides.push({ trigger, response });
+    }
+    
+    saveOverrides();
+    renderOverridesList();
+    triggerInput.value = '';
+    responseInput.value = '';
+}
+
+function deleteOverride(index) {
+    responseOverrides.splice(index, 1);
+    saveOverrides();
+    renderOverridesList();
+}
+
+function renderOverridesList() {
+    if (responseOverrides.length === 0) {
+        overridesList.innerHTML = '<p class="no-overrides">No overrides configured yet.</p>';
+        return;
+    }
+    
+    overridesList.innerHTML = responseOverrides.map((override, index) => `
+        <div class="override-item">
+            <div class="override-info">
+                <div class="override-trigger">"${escapeHtml(override.trigger)}"</div>
+                <div class="override-response">${escapeHtml(override.response)}</div>
+            </div>
+            <button class="override-delete" data-index="${index}">Delete</button>
+        </div>
+    `).join('');
+    
+    // Add event listeners for delete buttons
+    overridesList.querySelectorAll('.override-delete').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index, 10);
+            deleteOverride(index);
+        });
+    });
+}
+
+// Word-order independent matching
+function normalizeForMatching(text) {
+    // Convert to lowercase, remove punctuation, split into words, sort, and join
+    return text
+        .toLowerCase()
+        .replace(/[^\w\s]/g, '')
+        .split(/\s+/)
+        .filter(word => word.length > 0)
+        .sort()
+        .join(' ');
+}
+
+function checkForOverride(message) {
+    const normalizedMessage = normalizeForMatching(message);
+    const messageWords = normalizedMessage.split(' ');
+    
+    for (const override of responseOverrides) {
+        const normalizedTrigger = normalizeForMatching(override.trigger);
+        const triggerWords = normalizedTrigger.split(' ');
+        
+        // Check if the message contains all words from the trigger (allows extra words)
+        const allWordsMatch = triggerWords.every(word => messageWords.includes(word));
+        
+        if (allWordsMatch) {
+            return override.response;
+        }
+    }
+    
+    return null;
+}
 
 // Functions
 function saveApiKey() {
@@ -142,6 +276,20 @@ async function sendMessage() {
     addMessage(message, true);
     userInput.value = '';
     userInput.style.height = 'auto';
+
+    // Check for override first
+    const overrideResponse = checkForOverride(message);
+    
+    if (overrideResponse) {
+        // Use override response with a small delay to feel natural
+        setTimeout(() => {
+            addMessage(overrideResponse);
+            userInput.disabled = false;
+            sendBtn.disabled = false;
+            userInput.focus();
+        }, 500);
+        return;
+    }
 
     // Show typing indicator
     addTypingIndicator();

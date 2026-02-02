@@ -14,6 +14,20 @@ A modern, responsive AI chatbot web application powered by Google's Gemini API.
 - 🔐 Secure API key storage (stored locally in browser)
 - ⚡ Real-time typing indicators
 - 🎨 Beautiful gradient UI design
+- 🎯 **Response Overrides** - Create custom responses for specific questions
+
+## 🎯 Response Overrides (Unique Feature)
+
+You can create custom responses that override the AI for specific phrases. The matching is **word-order independent**, meaning:
+
+- "siapa anda" and "anda siapa" will both trigger the same response
+- "siapa anda sebenarnya" will also match because it contains "siapa anda"
+
+### How to Use:
+1. Click the ⚙️ settings button in the header
+2. Add a trigger phrase (e.g., "siapa anda")
+3. Add a custom response (e.g., "Saya adalah Syahla")
+4. The AI will now respond with your custom message whenever the trigger phrase is detected
 
 ## 🚀 Getting Started
 

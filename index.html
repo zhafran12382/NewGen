@@ -16,6 +16,41 @@
                     <p>Powered by Google Gemini</p>
                 </div>
             </div>
+            <button id="settingsBtn" class="settings-btn" title="Response Overrides">
+                ⚙️
+            </button>
+        </div>
+
+        <!-- Response Override Modal -->
+        <div class="modal-overlay" id="overrideModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>🎯 Response Overrides</h2>
+                    <button class="modal-close" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p class="modal-description">
+                        Create custom responses for specific questions. The matching works regardless of word order 
+                        (e.g., "siapa anda" and "anda siapa" will both match).
+                    </p>
+                    
+                    <div class="add-override-section">
+                        <h3>Add New Override</h3>
+                        <div class="override-form">
+                            <input type="text" id="triggerInput" placeholder="Trigger phrase (e.g., siapa anda)">
+                            <textarea id="responseInput" placeholder="Custom response (e.g., Saya adalah Syahla)" rows="2"></textarea>
+                            <button id="addOverrideBtn" class="btn-primary">Add Override</button>
+                        </div>
+                    </div>
+
+                    <div class="overrides-list-section">
+                        <h3>Active Overrides</h3>
+                        <div id="overridesList" class="overrides-list">
+                            <p class="no-overrides">No overrides configured yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="api-key-section" id="apiKeySection">

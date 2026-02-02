@@ -32,12 +32,34 @@ body {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     padding: 20px;
     color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .header-content {
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+.settings-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.settings-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(45deg);
 }
 
 .logo {
@@ -385,5 +407,201 @@ body {
 
     .api-key-card h2 {
         font-size: 20px;
+    }
+}
+
+/* Modal Styles */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 80vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 24px;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.3s;
+}
+
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.modal-description {
+    color: #666;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f0f2f5;
+    border-radius: 10px;
+}
+
+.add-override-section,
+.overrides-list-section {
+    margin-bottom: 20px;
+}
+
+.add-override-section h3,
+.overrides-list-section h3 {
+    font-size: 16px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.override-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.override-form input,
+.override-form textarea {
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.3s;
+}
+
+.override-form input:focus,
+.override-form textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.override-form textarea {
+    resize: none;
+}
+
+.overrides-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.no-overrides {
+    color: #999;
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+}
+
+.override-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+}
+
+.override-info {
+    flex: 1;
+}
+
+.override-trigger {
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.override-response {
+    color: #666;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.override-delete {
+    background: #fee2e2;
+    border: none;
+    color: #dc2626;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    transition: background 0.3s;
+    margin-left: 10px;
+}
+
+.override-delete:hover {
+    background: #fecaca;
+}
+
+/* Mobile Modal */
+@media (max-width: 600px) {
+    .modal-content {
+        max-height: 90vh;
+        border-radius: 15px;
+    }
+    
+    .modal-body {
+        padding: 15px;
     }
 }
