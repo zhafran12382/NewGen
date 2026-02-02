@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chatbot - Powered by Gemini</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <div class="header-content">
+                <div class="logo">🤖</div>
+                <div class="header-text">
+                    <h1>AI Chatbot</h1>
+                    <p>Powered by Google Gemini</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="api-key-section" id="apiKeySection">
+            <div class="api-key-card">
+                <h2>🔑 Enter Your API Key</h2>
+                <p>Get your free API key from <a href="https://aistudio.google.com/app/apikey" target="_blank">Google AI Studio</a></p>
+                <div class="api-input-group">
+                    <input type="password" id="apiKeyInput" placeholder="Enter your Gemini API Key">
+                    <p class="api-error" id="apiError"></p>
+                    <button id="saveApiKey" class="btn-primary">Start Chatting</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-main" id="chatMain" style="display: none;">
+            <div class="chat-messages" id="chatMessages">
+                <div class="message bot-message">
+                    <div class="message-avatar">🤖</div>
+                    <div class="message-content">
+                        <p>Hello! I'm your AI assistant powered by Google Gemini. How can I help you today?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-input-container">
+                <div class="chat-input-wrapper">
+                    <textarea id="userInput" placeholder="Type your message here..." rows="1"></textarea>
+                    <button id="sendBtn" class="send-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                        </svg>
+                    </button>
+                </div>
+                <button id="changeApiKey" class="change-key-btn">Change API Key</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
